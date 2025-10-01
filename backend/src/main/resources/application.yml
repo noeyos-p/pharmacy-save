@@ -1,0 +1,74 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - common
+      prod:
+        - common
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+
+app:
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
+
+kakao:
+  rest:
+    api:
+      key: ${KAKAO_REST_API_KEY}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pharmacy?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USER}
+    password: ${DB_PW}
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: update   # 개발 단계에서만 update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${RDS_ENDPOINT:my-prod-database}:3306/myapp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate # 운영은 validate 고정
+    properties:
+      hibernate:
+        show_sql: false
+
+app:
+  allowed-origins: ${ALLOWED_ORIGINS:https://YOUR_DOMAIN}
