@@ -4,8 +4,9 @@ services:
     image: mysql:8.0
     container_name: db
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: api
+      MYSQL_DATABASE: pharmacy
     ports:
       - "3307:3306"
     volumes:

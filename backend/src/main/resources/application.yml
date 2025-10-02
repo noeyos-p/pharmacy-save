@@ -33,8 +33,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pharmacy?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: ${DB_USER}
-    password: ${DB_PW}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 
   sql:
     init:
@@ -58,7 +58,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${RDS_ENDPOINT:my-prod-database}:3306/myapp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${RDS_ENDPOINT:my-prod-database}:3306/pharmacy?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
 
