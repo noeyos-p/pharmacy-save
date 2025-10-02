@@ -2,7 +2,7 @@ name: CI/CD Monorepo
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths:
       - 'backend/**'
       - 'frontend/**'
