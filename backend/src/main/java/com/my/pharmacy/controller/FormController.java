@@ -28,13 +28,13 @@ public class FormController {
         this.pharmacyService = pharmacyService;
     }
 
-    // ✅ 단순 확인용 API
+    // 단순 확인용 API
     @GetMapping("/health")
     public String healthCheck() {
         return "Pharmacy API is running!";
     }
 
-    // ✅ 검색 API (JSON 응답)
+    // 검색 API (JSON 응답)
     @PostMapping("/search")
     public List<OutputDto> searchAddress(@RequestBody InputDto dto) {
         // 주소 검색 API 호출
@@ -56,7 +56,7 @@ public class FormController {
                 kakaoCategorySearchService.makeOutputDto(
                         recommendationDto.getDocumentList());
 
-        // ✅ DB 저장
+        // DB 저장
         for (OutputDto pharmacyDto : outputDtoList) {
             String distanceStr = pharmacyDto.getDistance().replace(" m", "").trim();
             Pharmacy pharmacy = Pharmacy.builder()
@@ -70,7 +70,7 @@ public class FormController {
             pharmacyService.savePharmacy(pharmacy);
         }
 
-        // ✅ JSON으로 결과 반환
+        // JSON으로 결과 반환
         return outputDtoList;
     }
 }
@@ -110,13 +110,13 @@ public class FormController {
         this.pharmacyService = pharmacyService;
     }
 
-    // ✅ 메인 페이지 (주소 입력 화면)
+    // 메인 페이지 (주소 입력 화면)
     @GetMapping("/")
     public String mainPage() {
         return "main"; // templates/main.html 열기
     }
 
-    // ✅ 검색 결과 페이지
+    // 검색 결과 페이지
     @PostMapping("/search")
     public String searchAddress(InputDto dto, Model model) {
         // 주소 검색 API 호출
@@ -138,7 +138,7 @@ public class FormController {
                 kakaoCategorySearchService.makeOutputDto(
                         recommendationDto.getDocumentList());
 
-        // ✅ DB 저장
+        // DB 저장
         for (OutputDto pharmacyDto : outputDtoList) {
             String distanceStr = pharmacyDto.getDistance().replace(" m", "").trim();
             Pharmacy pharmacy = Pharmacy.builder()
@@ -152,7 +152,7 @@ public class FormController {
             pharmacyService.savePharmacy(pharmacy);
         }
 
-        // ✅ 화면에 검색 결과 전달
+        // 화면에 검색 결과 전달
         model.addAttribute("outputList", outputDtoList);
 
         return "output"; // templates/output.html 열기
